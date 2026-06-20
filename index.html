@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Court Ledger — Doubles League</title>
+<style>
+  /* ---- Design tokens ----
+     Subject: a club doubles ledger. Palette pulled from the court itself —
+     a deep tournament-blue surface, the white boundary line, a chalk paper,
+     and the optic-yellow of the ball as the single loud accent.            */
+  :root{
+    --court:#16324f;        /* deep court blue (surface)        */
+    --court-deep:#0f2438;   /* shadow blue                      */
+    --line:#f4f6f8;         /* boundary-line white              */
+    --chalk:#fbfaf6;        /* paper                            */
+    --ink:#1a2530;          /* text                             */
+    --ball:#d8e63a;         /* optic-yellow accent              */
+    --ball-deep:#b7c41e;
+    --muted:#6b7a88;
+    --win:#2f8f5b;
+    --loss:#b4474a;
+    --hair:#dfe4e8;
+    --radius:14px;
+    --font-display:'Archivo Black','Arial Black',system-ui,sans-serif;
+    --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-num:'Roboto Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@500;700&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--font-body);color:var(--ink);
+    background:var(--chalk);
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+
+  /* ---- Header: the court line motif ---- */
+  header{
+    background:var(--court);color:var(--line);
+    padding:28px 22px 24px;position:relative;overflow:hidden;
+  }
+  header::after{ /* centre service line nod */
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(90deg,transparent calc(50% - 1px),rgba(244,246,248,.18) 50%,transparent calc(50% + 1px)),
+      linear-gradient(0deg,transparent calc(50% - 1px),rgba(244,246,248,.10) 50%,transparent calc(50% + 1px));
+    pointer-events:none;
+  }
+  .wrap{max-width:920px;margin:0 auto;position:relative;z-index:1}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .brand h1{
+    font-family:var(--font-display);font-size:clamp(26px,5vw,40px);
+    letter-spacing:-.5px;line-height:.95;
+  }
+  .brand .ball{color:var(--ball)}
+  .tag{font-size:13px;color:rgba(244,246,248,.7);font-weight:500;letter-spacing:.3px}
+
+  main{max-width:920px;margin:0 auto;padding:22px}
+
+  /* ---- League selector strip ---- */
+  .leagues-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+  .chip{
+    border:1.5px solid var(--hair);background:#fff;border-radius:999px;
+    padding:7px 15px;font-size:14px;font-weight:600;cursor:pointer;
+    transition:.15s;color:var(--ink);
+  }
+  .chip:hover{border-color:var(--court)}
+  .chip.active{background:var(--court);color:var(--line);border-color:var(--court)}
+  .chip.done{opacity:.6}
+
+  .card{
+    background:#fff;border:1px solid var(--hair);border-radius:var(--radius);
+    padding:20px;margin-bottom:18px;
+  }
+  .card h2{
+    font-family:var(--font-display);font-size:15px;letter-spacing:.2px;
+    text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:9px;
+  }
+  .card h2::before{ /* ball dot */
+    content:"";width:11px;height:11px;border-radius:50%;
+    background:var(--ball);border:1.5px solid var(--ball-deep);flex:none;
+  }
+
+  /* ---- Standings table ---- */
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 8px;text-align:center}
+  th{
+    font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);
+    border-bottom:2px solid var(--court);font-weight:700;
+  }
+  td{border-bottom:1px solid var(--hair)}
+  tr:last-child td{border-bottom:none}
+  .team-cell{text-align:left;font-weight:600}
+  .team-cell .pair{display:block;font-size:12px;color:var(--muted);font-weight:500}
+  .pts{font-family:var(--font-num);font-weight:700;font-size:16px;color:var(--court)}
+  .num{font-family:var(--font-num)}
+  .rank{font-family:var(--font-num);color:var(--muted);font-weight:700}
+  .rank.top{color:var(--ball-deep)}
+  tr.leader td{background:linear-gradient(90deg,rgba(216,230,58,.14),transparent)}
+
+  /* ---- Fixtures ---- */
+  .fixture{
+    border:1px solid var(--hair);border-radius:12px;padding:14px;margin-bottom:10px;
+  }
+  .fx-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .fx-teams{font-weight:600;font-size:15px}
+  .fx-result{font-family:var(--font-num);font-weight:700;font-size:15px}
+  .fx-result .w{color:var(--win)}
+  .fx-pending{color:var(--muted);font-weight:500;font-size:13px;font-family:var(--font-body)}
+  .games{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .game-score{
+    font-family:var(--font-num);font-size:13px;background:var(--chalk);
+    border:1px solid var(--hair);border-radius:7px;padding:4px 9px;
+  }
+
+  /* ---- Buttons / inputs ---- */
+  button.btn{
+    font-family:var(--font-body);font-weight:600;font-size:14px;cursor:pointer;
+    border-radius:9px;padding:9px 16px;border:1.5px solid var(--court);
+    background:var(--court);color:var(--line);transition:.15s;
+  }
+  button.btn:hover{background:var(--court-deep)}
+  button.btn.ghost{background:#fff;color:var(--court)}
+  button.btn.ghost:hover{background:var(--chalk)}
+  button.btn.accent{background:var(--ball);border-color:var(--ball-deep);color:var(--ink)}
+  button.btn.accent:hover{background:var(--ball-deep)}
+  button.btn.sm{padding:6px 11px;font-size:13px}
+  button.btn:disabled{opacity:.5;cursor:not-allowed}
+
+  input,select{
+    font-family:var(--font-body);font-size:14px;padding:8px 10px;
+    border:1.5px solid var(--hair);border-radius:8px;background:#fff;color:var(--ink);
+  }
+  input:focus,select:focus{outline:2px solid var(--ball);outline-offset:1px;border-color:var(--ball-deep)}
+  input.score{width:54px;text-align:center;font-family:var(--font-num);font-weight:700}
+  label{font-size:13px;font-weight:600;display:block;margin-bottom:5px}
+
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .muted{color:var(--muted);font-size:13px}
+  .empty{text-align:center;padding:38px 20px;color:var(--muted)}
+  .empty .big{font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:6px}
+
+  /* ---- Admin gate ---- */
+  .admin-bar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  details.admin{margin-top:8px}
+  details.admin > summary{
+    cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);
+    list-style:none;user-select:none;
+  }
+  details.admin > summary::-webkit-details-marker{display:none}
+  details.admin > summary::before{content:"⚙ ";opacity:.7}
+
+  .pair-input{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+  .toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+    background:var(--court);color:var(--line);padding:12px 20px;border-radius:10px;
+    font-weight:600;font-size:14px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.2);
+    opacity:0;transition:.25s;pointer-events:none;
+  }
+  .toast.show{opacity:1}
+  .toast.err{background:var(--loss)}
+
+  dialog{
+    border:none;border-radius:var(--radius);padding:0;max-width:440px;width:92%;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+  }
+  dialog::backdrop{background:rgba(15,36,56,.5)}
+  .dlg-body{padding:22px}
+  .dlg-body h3{font-family:var(--font-display);font-size:17px;margin-bottom:10px}
+
+  footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:12px}
+
+  @media (max-width:560px){
+    th,td{padding:8px 4px;font-size:13px}
+    .pair-input{grid-template-columns:1fr 1fr;}
+    .pair-input button{grid-column:1/-1}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap brand">
+    <h1>Court<span class="ball">Ledger</span></h1>
+    <span class="tag">Club doubles league · best of three</span>
+  </div>
+</header>
+
+<main>
+  <div class="admin-bar">
+    <button class="btn ghost sm" id="adminToggle">Admin</button>
+  </div>
+
+  <div class="leagues-bar" id="leaguesBar"></div>
+
+  <div id="adminPanel" style="display:none"></div>
+  <div id="view"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- New league dialog -->
+<dialog id="newLeagueDlg">
+  <div class="dlg-body">
+    <h3>New league</h3>
+    <label>League name</label>
+    <input id="nlName" placeholder="Mixed Doubles — Autumn 2026" style="width:100%;margin-bottom:14px">
+    <label>Players (one per line — these get paired into teams)</label>
+    <textarea id="nlPlayers" rows="8" placeholder="Tom&#10;Lauren&#10;Neil&#10;Kelsey&#10;..." style="width:100%;font-family:var(--font-body);font-size:14px;padding:8px 10px;border:1.5px solid var(--hair);border-radius:8px;resize:vertical"></textarea>
+    <div class="muted" style="margin:6px 0 14px">Even number of players needed. You'll pair them next.</div>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn ghost" onclick="document.getElementById('newLeagueDlg').close()">Cancel</button>
+      <button class="btn accent" id="nlNext">Next: pair teams</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Pairing dialog -->
+<dialog id="pairDlg">
+  <div class="dlg-body">
+    <h3>Pair up the teams</h3>
+    <div class="row" style="margin-bottom:12px">
+      <button class="btn ghost sm" id="randomisePairs">🎲 Randomise pairs</button>
+    </div>
+    <div id="pairList"></div>
+    <div class="row" style="justify-content:flex-end;margin-top:14px">
+      <button class="btn ghost" onclick="document.getElementById('pairDlg').close()">Back</button>
+      <button class="btn accent" id="createLeague">Create league</button>
+    </div>
+  </div>
+</dialog>
+
+<footer id="footer"></footer>
+
+<script>
+/* ============================================================
+   CourtLedger — single-file doubles league tracker
+   Data lives in docs/data.json in this repo. The browser reads
+   it on load and (when an admin token is supplied) writes it
+   back via the GitHub Contents API. No server, no database.
+   ============================================================ */
+
+// ---- CONFIG: set these two to your repo ----
+const REPO_OWNER = "YOUR_GITHUB_USERNAME";   // <-- change me
+const REPO_NAME  = "pickleball-league";      // <-- change me if different
+const DATA_PATH  = "docs/data.json";
+const BRANCH     = "main";
+// --------------------------------------------
+
+let DATA = { leagues: [] };
+let activeLeagueId = null;
+let dataSha = null;            // GitHub file SHA, needed to write back
+let adminToken = sessionStorage.getItem("cl_token") || null;
+let pairingState = { name:"", players:[], pairs:[] };
+
+const $ = sel => document.querySelector(sel);
+const el = (t,p={})=>Object.assign(document.createElement(t),p);
+const isAdmin = ()=>!!adminToken;
+
+/* ---------- SCORING ----------
+   Per match (best of 3 games):
+     each game won by a team = 1 league point to that team
+     (so a 2–1 match gives 2 pts vs 1 pt; a 2–0 gives 2 vs 0)
+   Tiebreak = total points SCORED across all games played
+     (an 11–9 loss still banks 9 toward this).
+   Standings ranked by: league points, then total scored,
+   then point difference, then games won.                       */
+function deriveStandings(league){
+  const t = {};
+  league.teams.forEach(tm=>{
+    t[tm.id]={ team:tm, P:0, gw:0, gl:0, pf:0, pa:0, pts:0 };
+  });
+  league.fixtures.forEach(fx=>{
+    if(!fx.games || !fx.games.length) return;
+    const A=t[fx.teamA], B=t[fx.teamB];
+    if(!A||!B) return;
+    let played=false;
+    fx.games.forEach(g=>{
+      if(g.a==null||g.b==null) return;
+      played=true;
+      A.pf+=g.a; A.pa+=g.b; B.pf+=g.b; B.pa+=g.a;
+      if(g.a>g.b){ A.gw++; B.gl++; A.pts++; }
+      else if(g.b>g.a){ B.gw++; A.gl++; B.pts++; }
+    });
+    if(played){ A.P++; B.P++; }
+  });
+  return Object.values(t).sort((x,y)=>
+    y.pts-x.pts ||                 // league points
+    y.pf-x.pf ||                   // total points scored (tiebreak)
+    (y.pf-y.pa)-(x.pf-x.pa) ||     // point difference
+    y.gw-x.gw ||                   // games won
+    x.team.name.localeCompare(y.team.name)
+  );
+}
+
+function matchResult(fx){
+  let a=0,b=0,played=false;
+  (fx.games||[]).forEach(g=>{
+    if(g.a==null||g.b==null) return;
+    played=true;
+    if(g.a>g.b)a++; else if(g.b>g.a)b++;
+  });
+  return played ? {a,b,played:true} : {played:false};
+}
+
+/* ---------- LOAD ---------- */
+async function loadData(){
+  try{
+    const r = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_PATH}?ref=${BRANCH}`,
+      { headers:{ "Accept":"application/vnd.github.v3+json" } });
+    if(r.ok){
+      const j = await r.json();
+      dataSha = j.sha;
+      DATA = JSON.parse(decodeURIComponent(escape(atob(j.content))));
+    } else {
+      // fall back to a plain fetch of the static file (e.g. pre-config)
+      const r2 = await fetch(DATA_PATH + "?cb=" + Date.now());
+      if(r2.ok) DATA = await r2.json();
+    }
+  }catch(e){
+    try{ const r2=await fetch(DATA_PATH+"?cb="+Date.now()); if(r2.ok) DATA=await r2.json(); }
+    catch(_){ DATA={leagues:[]}; }
+  }
+  if(!DATA.leagues) DATA.leagues=[];
+  if(!activeLeagueId && DATA.leagues.length) activeLeagueId=DATA.leagues[0].id;
+  render();
+}
+
+/* ---------- SAVE (admin only) ---------- */
+async function saveData(){
+  if(!isAdmin()){ toast("Admin token needed to save","err"); return false; }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(DATA,null,2))));
+  try{
+    const body = { message:`Update league data — ${new Date().toISOString()}`, content, branch:BRANCH };
+    if(dataSha) body.sha = dataSha;
+    const r = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_PATH}`,{
+      method:"PUT",
+      headers:{ "Authorization":`token ${adminToken}`, "Accept":"application/vnd.github.v3+json" },
+      body:JSON.stringify(body)
+    });
+    if(!r.ok){
+      const err = await r.json().catch(()=>({}));
+      toast("Save failed: "+(err.message||r.status),"err");
+      return false;
+    }
+    const j = await r.json();
+    dataSha = j.content.sha;
+    toast("Saved ✓");
+    return true;
+  }catch(e){ toast("Save error: "+e.message,"err"); return false; }
+}
+
+/* ---------- RENDER ---------- */
+function render(){
+  renderLeaguesBar();
+  renderAdminPanel();
+  const lg = DATA.leagues.find(l=>l.id===activeLeagueId);
+  const v = $("#view"); v.innerHTML="";
+  if(!lg){
+    v.appendChild(el("div",{className:"empty",innerHTML:
+      `<div class="big">No leagues yet</div>
+       <div>${isAdmin()?"Use “New league” above to set one up.":"An admin needs to create a league."}</div>`}));
+    renderFooter(); return;
+  }
+  v.appendChild(standingsCard(lg));
+  v.appendChild(fixturesCard(lg));
+  renderFooter();
+}
+
+function renderLeaguesBar(){
+  const bar=$("#leaguesBar"); bar.innerHTML="";
+  DATA.leagues.forEach(lg=>{
+    const c=el("button",{className:"chip"+(lg.id===activeLeagueId?" active":"")+(lg.status==="complete"?" done":""),
+      textContent:lg.name+(lg.status==="complete"?" ✓":"")});
+    c.onclick=()=>{ activeLeagueId=lg.id; render(); };
+    bar.appendChild(c);
+  });
+  if(isAdmin()){
+    const add=el("button",{className:"chip",textContent:"+ New league",style:"border-style:dashed"});
+    add.onclick=openNewLeague;
+    bar.appendChild(add);
+  }
+}
+
+function standingsCard(lg){
+  const card=el("div",{className:"card"});
+  card.appendChild(el("h2",{textContent:"Standings"}));
+  const s=deriveStandings(lg);
+  if(!s.length){ card.appendChild(el("div",{className:"muted",textContent:"No teams yet."})); return card; }
+  const tbl=el("table");
+  tbl.innerHTML=`<thead><tr>
+    <th>#</th><th class="team-cell" style="text-align:left">Team</th>
+    <th>P</th><th>Games W</th><th>Pts For</th><th>Diff</th><th>Points</th>
+  </tr></thead>`;
+  const tb=el("tbody");
+  s.forEach((row,i)=>{
+    const tr=el("tr",{className:i===0?"leader":""});
+    const diff=row.pf-row.pa;
+    tr.innerHTML=`
+      <td class="rank ${i===0?'top':''}">${i+1}</td>
+      <td class="team-cell">${esc(row.team.name)}<span class="pair">${esc(row.team.player1)} & ${esc(row.team.player2)}</span></td>
+      <td class="num">${row.P}</td>
+      <td class="num">${row.gw}</td>
+      <td class="num">${row.pf}</td>
+      <td class="num">${diff>0?'+':''}${diff}</td>
+      <td class="pts">${row.pts}</td>`;
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb); card.appendChild(tbl);
+  card.appendChild(el("div",{className:"muted",style:"margin-top:10px",
+    innerHTML:"Ranked by <b>points</b> (one per game won), then <b>total points scored</b> as tiebreak."}));
+  return card;
+}
+
+function fixturesCard(lg){
+  const card=el("div",{className:"card"});
+  card.appendChild(el("h2",{textContent:"Fixtures & results"}));
+  if(!lg.fixtures.length){ card.appendChild(el("div",{className:"muted",textContent:"No fixtures."})); return card; }
+  lg.fixtures.forEach(fx=>{
+    const A=lg.teams.find(t=>t.id===fx.teamA), B=lg.teams.find(t=>t.id===fx.teamB);
+    if(!A||!B) return;
+    const wrap=el("div",{className:"fixture"});
+    const res=matchResult(fx);
+    const head=el("div",{className:"fx-head"});
+    head.innerHTML=`<span class="fx-teams">${esc(A.name)} <span class="muted">v</span> ${esc(B.name)}</span>`;
+    const rspan=el("span");
+    if(res.played){
+      const aw=res.a>res.b, bw=res.b>res.a;
+      rspan.className="fx-result";
+      rspan.innerHTML=`<span class="${aw?'w':''}">${res.a}</span> – <span class="${bw?'w':''}">${res.b}</span>`;
+    } else { rspan.className="fx-pending"; rspan.textContent="Not played"; }
+    head.appendChild(rspan);
+    wrap.appendChild(head);
+
+    // game scores row
+    const gamesRow=el("div",{className:"games"});
+    (fx.games||[]).forEach((g,i)=>{
+      gamesRow.appendChild(el("span",{className:"game-score",
+        textContent:`G${i+1}  ${g.a??'–'}–${g.b??'–'}`}));
+    });
+    wrap.appendChild(gamesRow);
+
+    // entry form — anyone can enter (trusted club); save needs admin? -> no, anyone with link
+    const editBtn=el("button",{className:"btn ghost sm",textContent:res.played?"Edit result":"Enter result",style:"margin-top:10px"});
+    editBtn.onclick=()=>openScoreEntry(lg,fx,A,B);
+    wrap.appendChild(editBtn);
+    card.appendChild(wrap);
+  });
+  return card;
+}
+
+/* ---------- SCORE ENTRY ---------- */
+function openScoreEntry(lg,fx,A,B){
+  const dlg=el("dialog");
+  const games = (fx.games&&fx.games.length===3)?fx.games:[{a:null,b:null},{a:null,b:null},{a:null,b:null}];
+  dlg.innerHTML=`<div class="dlg-body">
+    <h3>${esc(A.name)} v ${esc(B.name)}</h3>
+    <div class="muted" style="margin-bottom:14px">Three games per fixture. Enter all three scores.</div>
+    <table style="margin-bottom:8px"><thead><tr><th style="text-align:left">Game</th><th>${esc(A.name)}</th><th>${esc(B.name)}</th></tr></thead><tbody>
+    ${[0,1,2].map(i=>`<tr>
+      <td style="text-align:left;font-weight:600">Game ${i+1}</td>
+      <td><input class="score" id="ga${i}" type="number" min="0" value="${games[i].a??''}"></td>
+      <td><input class="score" id="gb${i}" type="number" min="0" value="${games[i].b??''}"></td>
+    </tr>`).join("")}
+    </tbody></table>
+    <div class="row" style="justify-content:flex-end;margin-top:16px">
+      <button class="btn ghost" id="cancel">Cancel</button>
+      <button class="btn accent" id="save">Save result</button>
+    </div>
+  </div>`;
+  document.body.appendChild(dlg);
+  dlg.showModal();
+  dlg.querySelector("#cancel").onclick=()=>{dlg.close();dlg.remove();};
+  dlg.querySelector("#save").onclick=async()=>{
+    const newGames=[0,1,2].map(i=>{
+      const av=dlg.querySelector("#ga"+i).value, bv=dlg.querySelector("#gb"+i).value;
+      return { a:av===""?null:parseInt(av,10), b:bv===""?null:parseInt(bv,10) };
+    });
+    // every fixture is exactly 3 games — all must be filled, no ties
+    if(newGames.some(g=>g.a==null||g.b==null||isNaN(g.a)||isNaN(g.b))){
+      toast("Enter a score for all three games","err"); return;
+    }
+    if(newGames.some(g=>g.a===g.b)){
+      toast("A game can't be tied — pickleball plays to a winner","err"); return;
+    }
+    fx.games=newGames;
+    render();                       // optimistic
+    const ok=await saveData();
+    if(ok){ dlg.close(); dlg.remove(); }
+    else { loadData(); }            // revert on failure
+  };
+}
+
+/* ---------- ADMIN ---------- */
+function renderAdminPanel(){
+  const p=$("#adminPanel");
+  if(!isAdmin()){ p.style.display="none"; p.innerHTML=""; return; }
+  p.style.display="block";
+  p.innerHTML="";
+  const card=el("div",{className:"card"});
+  card.innerHTML=`<h2>Admin</h2>`;
+  const lg=DATA.leagues.find(l=>l.id===activeLeagueId);
+  const row=el("div",{className:"row"});
+  const newBtn=el("button",{className:"btn accent",textContent:"+ New league"});
+  newBtn.onclick=openNewLeague; row.appendChild(newBtn);
+  if(lg){
+    const doneBtn=el("button",{className:"btn ghost",
+      textContent:lg.status==="complete"?"Reopen league":"Mark complete"});
+    doneBtn.onclick=async()=>{ lg.status=lg.status==="complete"?"active":"complete"; render(); await saveData(); };
+    row.appendChild(doneBtn);
+    const delBtn=el("button",{className:"btn ghost",textContent:"Delete league",style:"border-color:var(--loss);color:var(--loss)"});
+    delBtn.onclick=async()=>{
+      if(!confirm(`Delete “${lg.name}”? This can be undone via git history.`)) return;
+      DATA.leagues=DATA.leagues.filter(l=>l.id!==lg.id);
+      activeLeagueId=DATA.leagues[0]?.id||null; render(); await saveData();
+    };
+    row.appendChild(delBtn);
+  }
+  const outBtn=el("button",{className:"btn ghost",textContent:"Sign out"});
+  outBtn.onclick=()=>{ adminToken=null; sessionStorage.removeItem("cl_token"); render(); toast("Signed out"); };
+  row.appendChild(outBtn);
+  card.appendChild(row);
+  p.appendChild(card);
+}
+
+function openNewLeague(){ $("#nlName").value=""; $("#nlPlayers").value=""; $("#newLeagueDlg").showModal(); }
+
+$("#nlNext").onclick=()=>{
+  const name=$("#nlName").value.trim();
+  const players=$("#nlPlayers").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  if(!name){ toast("Name the league","err"); return; }
+  if(players.length<4||players.length%2!==0){ toast("Need an even number of players (4+)","err"); return; }
+  pairingState={ name, players:[...players], pairs:makePairs(players,false) };
+  $("#newLeagueDlg").close();
+  renderPairList();
+  $("#pairDlg").showModal();
+};
+
+function makePairs(players,shuffle){
+  let arr=[...players];
+  if(shuffle){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } }
+  const pairs=[];
+  for(let i=0;i<arr.length;i+=2) pairs.push([arr[i],arr[i+1]]);
+  return pairs;
+}
+
+$("#randomisePairs").onclick=()=>{ pairingState.pairs=makePairs(pairingState.players,true); renderPairList(); };
+
+function renderPairList(){
+  const box=$("#pairList"); box.innerHTML="";
+  const all=pairingState.players;
+  pairingState.pairs.forEach((pair,i)=>{
+    const div=el("div",{className:"pair-input"});
+    div.innerHTML=`<span style="font-family:var(--font-num);font-weight:700;color:var(--court)">Team ${String.fromCharCode(65+i)}</span>`;
+    [0,1].forEach(slot=>{
+      const sel=el("select");
+      all.forEach(p=>{ const o=el("option",{value:p,textContent:p}); if(p===pair[slot])o.selected=true; sel.appendChild(o); });
+      sel.onchange=()=>{ pairingState.pairs[i][slot]=sel.value; };
+      div.appendChild(sel);
+    });
+    box.appendChild(div);
+  });
+}
+
+$("#createLeague").onclick=async()=>{
+  const flat=pairingState.pairs.flat();
+  if(new Set(flat).size!==flat.length){ toast("A player is in two teams — fix the pairs","err"); return; }
+  const lid="lg_"+Date.now().toString(36);
+  const teams=pairingState.pairs.map((p,i)=>({
+    id:"t"+i, name:"Team "+String.fromCharCode(65+i), player1:p[0], player2:p[1]
+  }));
+  const fixtures=[];
+  for(let i=0;i<teams.length;i++) for(let j=i+1;j<teams.length;j++)
+    fixtures.push({ id:`${teams[i].id}_${teams[j].id}`, teamA:teams[i].id, teamB:teams[j].id,
+      games:[{a:null,b:null},{a:null,b:null},{a:null,b:null}] });
+  DATA.leagues.push({ id:lid, name:pairingState.name, status:"active", teams, fixtures });
+  activeLeagueId=lid;
+  $("#pairDlg").close();
+  render();
+  await saveData();
+};
+
+/* ---------- ADMIN TOKEN GATE ---------- */
+$("#adminToggle").onclick=()=>{
+  if(isAdmin()){ adminToken=null; sessionStorage.removeItem("cl_token"); render(); toast("Admin off"); return; }
+  const dlg=el("dialog");
+  dlg.innerHTML=`<div class="dlg-body">
+    <h3>Admin access</h3>
+    <div class="muted" style="margin-bottom:14px">Paste a GitHub fine-grained token with <b>Contents: read & write</b> on this repo. Kept in this browser tab only — never saved to the repo.</div>
+    <input id="tok" type="password" placeholder="github_pat_..." style="width:100%;margin-bottom:14px">
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn ghost" id="x">Cancel</button>
+      <button class="btn accent" id="ok">Unlock</button>
+    </div></div>`;
+  document.body.appendChild(dlg); dlg.showModal();
+  dlg.querySelector("#x").onclick=()=>{dlg.close();dlg.remove();};
+  dlg.querySelector("#ok").onclick=()=>{
+    const t=dlg.querySelector("#tok").value.trim();
+    if(!t){ return; }
+    adminToken=t; sessionStorage.setItem("cl_token",t);
+    dlg.close(); dlg.remove(); loadData(); toast("Admin unlocked ✓");
+  };
+};
+
+/* ---------- helpers ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+let toastT;
+function toast(msg,kind){
+  const t=$("#toast"); t.textContent=msg; t.className="toast show"+(kind==="err"?" err":"");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.className="toast",2200);
+}
+function renderFooter(){
+  $("#footer").innerHTML=`CourtLedger · results saved to <code>${DATA_PATH}</code> · ${DATA.leagues.length} league${DATA.leagues.length===1?'':'s'}`;
+}
+
+loadData();
+</script>
+</body>
+</html>
