@@ -132,16 +132,16 @@
           "teamB": "t3",
           "games": [
             {
-              "a": null,
-              "b": null
+              "a": 11,
+              "b": 0
             },
             {
-              "a": null,
-              "b": null
+              "a": 11,
+              "b": 5
             },
             {
-              "a": null,
-              "b": null
+              "a": 11,
+              "b": 2
             }
           ]
         }
