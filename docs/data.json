@@ -1,3 +1,44 @@
 {
-  "leagues": []
+  "leagues": [
+    {
+      "id": "lg_mt21jaa4",
+      "name": "Clanfield Mixed Doubles League",
+      "status": "active",
+      "teams": [
+        {
+          "id": "t0",
+          "name": "Team A",
+          "player1": "Tom",
+          "player2": "Lauren"
+        },
+        {
+          "id": "t1",
+          "name": "Team B",
+          "player1": "Alex",
+          "player2": "Pheobe"
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "t0_t1",
+          "teamA": "t0",
+          "teamB": "t1",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
