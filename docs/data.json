@@ -1,3 +1,1339 @@
 {
-  "leagues": []
+  "leagues": [
+    {
+      "id": "lg_mt221uzc",
+      "name": "Clanfield Mixed Doubles League",
+      "status": "active",
+      "teams": [
+        {
+          "id": "t0",
+          "name": "Team A",
+          "player1": "Alex",
+          "player2": "Phoebe"
+        },
+        {
+          "id": "t1",
+          "name": "Team B",
+          "player1": "Richard",
+          "player2": "Sam S"
+        },
+        {
+          "id": "t2",
+          "name": "Team C",
+          "player1": "Ian",
+          "player2": "Sam"
+        },
+        {
+          "id": "t3",
+          "name": "Team D",
+          "player1": "Chris Cox",
+          "player2": "Amanda"
+        },
+        {
+          "id": "t4",
+          "name": "Team E",
+          "player1": "Dave",
+          "player2": "Helen"
+        },
+        {
+          "id": "t5",
+          "name": "Team F",
+          "player1": "Jo",
+          "player2": "Spinner Steve"
+        },
+        {
+          "id": "t6",
+          "name": "Team G",
+          "player1": "Will",
+          "player2": "Alyson"
+        },
+        {
+          "id": "t7",
+          "name": "Team H",
+          "player1": "Tom",
+          "player2": "Lauren"
+        },
+        {
+          "id": "t8",
+          "name": "Team I",
+          "player1": "Chris Copping",
+          "player2": "Tracey"
+        },
+        {
+          "id": "t9",
+          "name": "Team J",
+          "player1": "Marilyn",
+          "player2": "Nigel"
+        },
+        {
+          "id": "t10",
+          "name": "Team K",
+          "player1": "Maria",
+          "player2": "Steve"
+        },
+        {
+          "id": "t11",
+          "name": "Team L",
+          "player1": "Liz",
+          "player2": "Paul"
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "t0_t1",
+          "teamA": "t0",
+          "teamB": "t1",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t2",
+          "teamA": "t0",
+          "teamB": "t2",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t3",
+          "teamA": "t0",
+          "teamB": "t3",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t4",
+          "teamA": "t0",
+          "teamB": "t4",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t5",
+          "teamA": "t0",
+          "teamB": "t5",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t6",
+          "teamA": "t0",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t7",
+          "teamA": "t0",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t8",
+          "teamA": "t0",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t9",
+          "teamA": "t0",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t10",
+          "teamA": "t0",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t0_t11",
+          "teamA": "t0",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t2",
+          "teamA": "t1",
+          "teamB": "t2",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t3",
+          "teamA": "t1",
+          "teamB": "t3",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t4",
+          "teamA": "t1",
+          "teamB": "t4",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t5",
+          "teamA": "t1",
+          "teamB": "t5",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t6",
+          "teamA": "t1",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t7",
+          "teamA": "t1",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t8",
+          "teamA": "t1",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t9",
+          "teamA": "t1",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t10",
+          "teamA": "t1",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t1_t11",
+          "teamA": "t1",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t3",
+          "teamA": "t2",
+          "teamB": "t3",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t4",
+          "teamA": "t2",
+          "teamB": "t4",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t5",
+          "teamA": "t2",
+          "teamB": "t5",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t6",
+          "teamA": "t2",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t7",
+          "teamA": "t2",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t8",
+          "teamA": "t2",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t9",
+          "teamA": "t2",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t10",
+          "teamA": "t2",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t2_t11",
+          "teamA": "t2",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t4",
+          "teamA": "t3",
+          "teamB": "t4",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t5",
+          "teamA": "t3",
+          "teamB": "t5",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t6",
+          "teamA": "t3",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t7",
+          "teamA": "t3",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t8",
+          "teamA": "t3",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t9",
+          "teamA": "t3",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t10",
+          "teamA": "t3",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t3_t11",
+          "teamA": "t3",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t5",
+          "teamA": "t4",
+          "teamB": "t5",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t6",
+          "teamA": "t4",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t7",
+          "teamA": "t4",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t8",
+          "teamA": "t4",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t9",
+          "teamA": "t4",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t10",
+          "teamA": "t4",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t4_t11",
+          "teamA": "t4",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t6",
+          "teamA": "t5",
+          "teamB": "t6",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t7",
+          "teamA": "t5",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t8",
+          "teamA": "t5",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t9",
+          "teamA": "t5",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t10",
+          "teamA": "t5",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t5_t11",
+          "teamA": "t5",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t6_t7",
+          "teamA": "t6",
+          "teamB": "t7",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t6_t8",
+          "teamA": "t6",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t6_t9",
+          "teamA": "t6",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t6_t10",
+          "teamA": "t6",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t6_t11",
+          "teamA": "t6",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t7_t8",
+          "teamA": "t7",
+          "teamB": "t8",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t7_t9",
+          "teamA": "t7",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t7_t10",
+          "teamA": "t7",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t7_t11",
+          "teamA": "t7",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t8_t9",
+          "teamA": "t8",
+          "teamB": "t9",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t8_t10",
+          "teamA": "t8",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t8_t11",
+          "teamA": "t8",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t9_t10",
+          "teamA": "t9",
+          "teamB": "t10",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t9_t11",
+          "teamA": "t9",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        },
+        {
+          "id": "t10_t11",
+          "teamA": "t10",
+          "teamB": "t11",
+          "games": [
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            },
+            {
+              "a": null,
+              "b": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
